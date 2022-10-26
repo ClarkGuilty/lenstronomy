@@ -146,7 +146,7 @@ class Chameleon(LensProfileBase):
         return self._param_convert(alpha_1, w_c, w_t, e1, e2)
 
     def _param_convert(self, alpha_1, w_c, w_t, e1, e2):
-        if not w_t >= w_c:
+        if not w_t-0.005 >= w_c:
             return 0, w_t, w_c, 1, 1
         s_scale_1 = w_c
         s_scale_2 = w_t
