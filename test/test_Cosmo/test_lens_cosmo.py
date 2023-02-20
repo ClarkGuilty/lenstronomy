@@ -11,7 +11,7 @@ class TestLensCosmo(object):
     """
     tests the UnitManager class routines
     """
-    def setup(self):
+    def setup_method(self):
         z_L = 0.8
         z_S = 3.0
         from astropy.cosmology import FlatLambdaCDM
@@ -105,7 +105,7 @@ class TestLensCosmo(object):
 
     def test_a_z(self):
 
-        a = self.lensCosmo.a_z(z=1)
+        a = self.lensCosmo.background.a_z(z=1)
         npt.assert_almost_equal(a, 0.5)
 
     def test_sersic_m_star2k_eff(self):

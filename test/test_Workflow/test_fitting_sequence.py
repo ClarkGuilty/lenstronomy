@@ -20,7 +20,7 @@ class TestFittingSequence(object):
     test the fitting sequences
     """
 
-    def setup(self):
+    def setup_method(self):
 
         # data specifics
         sigma_bkg = 0.05  # background noise per pixel
@@ -271,7 +271,7 @@ class TestFittingSequence(object):
                                           kwargs_params)
 
         fitting_list = []
-        kwargs_zeus = {'sampler_type': 'ZEUS', 'n_burn': 2, 'n_run': 2, 'walkerRatio': 4}
+        kwargs_zeus = {'sampler_type': 'ZEUS', 'n_burn': 2, 'n_run': 2, 'walkerRatio': 4, 'backend_filename': 'test_mcmc_zeus.h5'}
 
         fitting_list.append(['MCMC', kwargs_zeus])
 
@@ -321,8 +321,8 @@ class TestFittingSequence(object):
     def test_dynesty(self):
         np.random.seed(42)
         kwargs_params = copy.deepcopy(self.kwargs_params)
-        kwargs_params['lens_model'][0][0]['theta_E'] += 0.2
-        kwargs_params['lens_model'][0][0]['gamma'] += 0.1
+        kwargs_params['lens_model'][0][0]['theta_E'] += 0.01
+        kwargs_params['lens_model'][0][0]['gamma'] += 0.01
         fittingSequence = FittingSequence(self.kwargs_data_joint, self.kwargs_model, self.kwargs_constraints,
                                           self.kwargs_likelihood, kwargs_params)
 
@@ -331,8 +331,8 @@ class TestFittingSequence(object):
             'sampler_type': 'DYNESTY',
             'kwargs_run': {
                 'dlogz_init': 0.01,
-                'nlive_init': 6,
-                'nlive_batch': 6,
+                'nlive_init': 20,
+                'nlive_batch': 20,
                 'maxbatch': 1,
             },
         }
